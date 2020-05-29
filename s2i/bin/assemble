@@ -25,6 +25,8 @@ fi
 echo "---> Installing dependencies..."
 
 pushd /tmp/src/
+
+echo "Working directory contents ..."
 ls -lah
 
 if [ -f "package-lock.json" ]; then
@@ -42,10 +44,13 @@ popd
 echo "---> Installing build artifacts..."
 
 if [ -d "/tmp/src/build" ]; then
+  echo "Copying artifacts from build/"
   cp -Rf /tmp/src/build/. ./
 elif [ -d "/tmp/src/public" ]; then
+  echo "Copying artifacts from public/"
   cp -Rf /tmp/src/public/. ./
 elif [ -d "/tmp/src/dist" ]; then
+  echo "Copying artifacts from dist/"
   cp -Rf /tmp/src/dist/. ./
 else
 
