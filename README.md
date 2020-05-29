@@ -1,5 +1,68 @@
+# TL;DR
+
+This repo has all the ingredients to make a Caddy s2i builder image.
+Once built, the image can be used to simplify the build process of content that needs to be served up via Caddy such as projects based on React, Angular, or Gatsby.
+
+# Usage
+
+The easiest way to consume this image is to find it in Artifactory and reference it in the `sourceStrategy` section of your build config.
+
+```yaml
+  strategy:
+        sourceStrategy:
+          env:
+          - name: BUILD_LOGLEVEL
+            value: "5"
+          from:
+            kind: ImageStreamTag
+            name: caddy-s2i-builder:latest
+            namespace: bla
+          incremental: false
+        type: Source
+```
+
+If you can't find it, or don't have access to it, you can build your own copy in your `tools` namespace with the steps below:
+
+First, create your own build config using the template in this repo:
+
+```console
+oc process -f https://raw.githubusercontent.com/bcgov/s2i-caddy-nodejs/master/openshift/templates/build.yaml | \
+oc apply -f -
+```
+
+The OCP `builder` will need to pull a base image from the RedHat Container Registry; you'll see it as the first line in the [Dockerfile](./Dockerfile):
+
+```console
+FROM registry.redhat.io/rhel8/nodejs-12:latest
+```
+
+To let your `builder` do this, sign-up for a *free* RedHat Developer to [this site](https://catalog.redhat.com/software/containers/search). Once you have credentials, create a secret the builder can use to pull image from the catalog:
+
+```console
+oc create secret docker-registry rh-registry \
+--docker-server=registry.redhat.io \
+--docker-username=<USERNAME> \
+--docker-password=<PASSWORD> \
+--docker-email=unused
+```
+
+Link the secret so the `builder` can use it; this command assumes your went with the default config name `caddy-s2i-builder` and the default secret name `rh-registry`. If you changed these, adjust the command below.
+
+```console
+oc set build-secret --pull bc/caddy-s2i-builder rh-registry
+```
+
+The final step is to trigger the build which will make the s2i caddy image and store a copy in your namespace:
+
+```console
+oc start-build bc/caddy-s2i-builder --follow
+```
+
+Reference this newly minted image in your `sourceStrategy` of your project yaml as you would any other source image.
 
 # Creating a basic S2I builder image  
+
+This section is usefully if you want to customize this image.
 
 ## Getting started  
 
