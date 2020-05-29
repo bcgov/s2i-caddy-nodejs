@@ -1,0 +1,54 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'caddy-s2i-builder' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# If the 'caddy-s2i-builder' assemble script is executed
+# with the '-h' flag, print the usage.
+if [[ "$1" == "-h" ]]; then
+	exec /usr/libexec/s2i/usage
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts..."
+  shopt -s dotglob
+  mv /tmp/artifacts/* ./
+  shopt -u dotglob
+fi
+
+echo "---> Installing dependencies..."
+
+pushd /tmp/src/
+ls -lah
+
+if [ -f "package-lock.json" ]; then
+  npm ci
+else
+  npm i 
+fi
+
+echo "---> Running build ..."
+
+npm run build
+
+echo "---> Installing build artifacts..."
+
+popd
+
+cp -Rf /tmp/src/build/. ./
+
+echo "---> Cleanup..."
+
+rm -rfv .npm .npm-global .pki .config
+
+echo "---> Working directory contents ..."
+
+ls -lah
+
+echo "---> Done!"
