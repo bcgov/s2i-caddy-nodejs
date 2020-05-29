@@ -35,13 +35,35 @@ fi
 
 echo "---> Running build ..."
 
-npm run build
-
-echo "---> Installing build artifacts..."
+npm build --if-present
 
 popd
 
-cp -Rf /tmp/src/build/. ./
+echo "---> Installing build artifacts..."
+
+if [ -d "/tmp/src/build" ]; then
+  cp -Rf /tmp/src/build/. ./
+elif [ -d "/tmp/src/public" ]; then
+  cp -Rf /tmp/src/public/. ./
+elif [ -d "/tmp/src/dist" ]; then
+  cp -Rf /tmp/src/dist/. ./
+else
+cat <<EOF
+*** WARNING ***
+I wasn't able to determine what build
+artifacts to copy. In order, I tried:
+build/
+public/
+dist/
+
+You may need to write your own 'assemble` script and
+put it in your project directory in 's2i/bin'; this
+will override this script and you can do as you please.
+
+Learn more about s2i builds here:
+https://docs.openshift.com/container-platform/3.11/creating_images/s2i.html
+EOF
+fi
 
 echo "---> Cleanup..."
 
