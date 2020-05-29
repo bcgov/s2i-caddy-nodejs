@@ -26,7 +26,7 @@ echo "---> Installing dependencies..."
 
 pushd /tmp/src/
 
-echo "Working directory contents ..."
+echo "Source directory contents ..."
 ls -lah
 
 if [ -f "package-lock.json" ]; then
@@ -37,7 +37,7 @@ fi
 
 echo "---> Running build ..."
 
-npm build --if-present
+npm run build --if-present
 
 popd
 
@@ -74,7 +74,7 @@ fi
 
 echo "---> Cleanup..."
 
-rm -rfv .npm .npm-global .pki .config
+rm -rf .npm .npm-global .pki .config
 
 echo "---> Working directory contents ..."
 
