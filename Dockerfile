@@ -32,7 +32,6 @@ ADD Caddyfile /opt/app-root/etc/Caddyfile
 # update that label
 COPY ./s2i/bin/ /usr/libexec/s2i
 
-# RUN chown -R 1001:1001 /opt/app-root && \
 RUN chmod -R 775 /opt/app-root/*
 
 USER 1001
