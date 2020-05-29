@@ -36,7 +36,7 @@ The OCP `builder` will need to pull a base image from the RedHat Container Regis
 FROM registry.redhat.io/rhel8/nodejs-12:latest
 ```
 
-To let your `builder` do this, sign-up for a *free* RedHat Developer to [this site](https://catalog.redhat.com/software/containers/search). Once you have credentials, create a secret the builder can use to pull image from the catalog:
+To let your `builder` do this, sign-up for a *free* RedHat Developer to [this site](https://catalog.redhat.com/software/containers/search). Once you have credentials, [create a secret](https://docs.openshift.com/container-platform/3.11/dev_guide/managing_images.html#allowing-pods-to-reference-images-from-other-secured-registries) the builder can use to pull image from the catalog:
 
 ```console
 oc create secret docker-registry rh-registry \
@@ -46,7 +46,7 @@ oc create secret docker-registry rh-registry \
 --docker-email=unused
 ```
 
-Link the secret so the `builder` can use it; this command assumes your went with the default config name `caddy-s2i-builder` and the default secret name `rh-registry`. If you changed these, adjust the command below.
+[Link the secret](https://docs.openshift.com/container-platform/3.11/dev_guide/managing_images.html#allowing-pods-to-reference-images-from-other-secured-registries) so the `builder` can use it; this command assumes your went with the default config name `caddy-s2i-builder` and the default secret name `rh-registry`. If you changed these, adjust the command below.
 
 ```console
 oc set build-secret --pull bc/caddy-s2i-builder rh-registry
