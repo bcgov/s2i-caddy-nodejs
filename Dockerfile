@@ -6,7 +6,7 @@ USER 0
 LABEL maintainer="Jason Leach <jason.leach@fullboar.ca>"
 
 ENV BUILDER_VERSION 1.1
-ENV CADDY_VERSION 2.0.0
+ENV CADDY_VERSION 2.1.1
 
 LABEL io.k8s.description="Platform for building Caddy images" \
      io.k8s.display-name="builder ${BUILDER_VERSION}" \
@@ -18,7 +18,7 @@ LABEL io.k8s.description="Platform for building Caddy images" \
 # RUN yum install -y rubygems && yum clean all -y
 # RUN gem install asdf
 
-RUN curl https://github.com/caddyserver/caddy/releases/latest/download/caddy_${CADDY_VERSION}_linux_amd64.tar.gz \
+RUN curl https://github.com/caddyserver/caddy/releases/download/v${CADDY_VERSION}/caddy_${CADDY_VERSION}_linux_amd64.tar.gz \
     -SL --header "Accept: application/tar+gzip, application/x-gzip, application/octet-stream" | \
     tar -zx -C /usr/bin/ && \
     chmod 0755 /usr/bin/caddy
