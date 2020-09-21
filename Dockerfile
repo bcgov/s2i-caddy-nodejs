@@ -1,5 +1,5 @@
 # caddy-s2i-builder
-FROM registry.redhat.io/rhel8/nodejs-12:latest
+FROM registry.redhat.io/rhscl/nodejs-12-rhel7
 
 USER 0
 
