@@ -16,6 +16,8 @@ LABEL io.k8s.description="Platform for building Caddy images" \
 # TODO: Install required packages here:
 # RUN yum install -y ... && yum clean all -y
 # RUN yum install -y rubygems && yum clean all -y
+# install python3
+RUN yum install python3
 # RUN gem install asdf
 
 RUN curl https://github.com/caddyserver/caddy/releases/download/v${CADDY_VERSION}/caddy_${CADDY_VERSION}_linux_amd64.tar.gz \
