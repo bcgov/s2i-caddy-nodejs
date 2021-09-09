@@ -6,12 +6,12 @@ USER 0
 LABEL maintainer="Jason Leach <jason.leach@fullboar.ca>"
 
 ENV BUILDER_VERSION 1.1
-ENV CADDY_VERSION 2.1.1
+ENV CADDY_VERSION 2.4.5
 
 LABEL io.k8s.description="Platform for building Caddy images" \
-     io.k8s.display-name="builder ${BUILDER_VERSION}" \
-     io.openshift.expose-services="8080:http" \
-     io.openshift.tags="builder,${BUILDER_VERSION},caddy"
+    io.k8s.display-name="builder ${BUILDER_VERSION}" \
+    io.openshift.expose-services="8080:http" \
+    io.openshift.tags="builder,${BUILDER_VERSION},caddy"
 
 # TODO: Install required packages here:
 # RUN yum install -y ... && yum clean all -y
