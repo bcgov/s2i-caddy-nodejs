@@ -22,10 +22,10 @@ encode zstd gzip
 
 # On OCP we should log to stdout so Prometheus can
 # slurp up the logs for human consumption.
-# TEST 3
+# TEST 4
 log {
-        #errors stdout
-        output stdout
-        format transform "{common_log}"
-        level info
+	#errors stdout
+	output stdout
+	format transform "{common_log}"
+	level info
 }
