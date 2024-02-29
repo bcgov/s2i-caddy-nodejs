@@ -128,7 +128,7 @@ s2i build test/test-app blarb blarb-app
 ```
 Using the logic defined in the *assemble* script, s2i will now create an application image using the builder image as a base and including the source code from the test/test-app directory. 
 
-If you are working in directories with a `.git` directory, you will need to commit your changes in order for the s2i build process to pickup your changed files. Reference
+If you are working in directories with a `.git` directory, you will need to [commit your changes in order for the s2i build process to pickup your changed files](https://github.com/openshift/source-to-image/issues/674). 
 
 #### Running the application image
 Running the application image is as simple as invoking the docker run command:
