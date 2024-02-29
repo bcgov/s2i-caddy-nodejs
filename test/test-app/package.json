@@ -1,0 +1,13 @@
+{
+    "name": "hello-world",
+    "description": "used for testing s2i build",
+    "version": "1.0.0",
+    "main": "index.html",
+    "engine": {
+        "node": "*",
+        "npm": "*"
+    },
+    "scripts": {
+        "build": "mkdir -p dist && cp index.html $_"
+    }
+}
