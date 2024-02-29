@@ -131,9 +131,9 @@ Using the logic defined in the *assemble* script, s2i will now create an applica
 #### Running the application image
 Running the application image is as simple as invoking the docker run command:
 ```
-docker run -d -p 8080:8080 blarb-app
+docker run -d -p 2015:2015 blarb-app
 ```
-The application, which consists of a simple static web page, should now be accessible at  [http://localhost:8080](http://localhost:8080).
+The application, which consists of a simple static web page, should now be accessible at  [http://localhost:2015](http://localhost:2015).
 
 #### Using the saved artifacts script
 Rebuilding the application using the saved artifacts can be accomplished using the following command:

@@ -1,12 +1,12 @@
 # caddy-s2i-builder
-FROM registry.redhat.io/rhel8/nodejs-12:latest
+FROM registry.redhat.io/rhel8/nodejs-20:1-30
 
 USER 0
 
 LABEL maintainer="Jason Leach <jason.leach@fullboar.ca>"
 
 ENV BUILDER_VERSION 1.1
-ENV CADDY_VERSION 2.1.1
+ENV CADDY_VERSION 2.7.6
 
 LABEL io.k8s.description="Platform for building Caddy images" \
      io.k8s.display-name="builder ${BUILDER_VERSION}" \
@@ -22,6 +22,8 @@ RUN curl https://github.com/caddyserver/caddy/releases/download/v${CADDY_VERSION
     -SL --header "Accept: application/tar+gzip, application/x-gzip, application/octet-stream" | \
     tar -zx -C /usr/bin/ && \
     chmod 0755 /usr/bin/caddy
+
+RUN caddy add-package github.com/caddyserver/transform-encoder   
 
 # This is where the s2i run script will look
 # for the default config file.
