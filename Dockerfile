@@ -23,6 +23,7 @@ RUN curl https://github.com/caddyserver/caddy/releases/download/v${CADDY_VERSION
     tar -zx -C /usr/bin/ && \
     chmod 0755 /usr/bin/caddy
 
+# Needed to use Caddy's logging format transform
 RUN caddy add-package github.com/caddyserver/transform-encoder   
 
 # This is where the s2i run script will look
